@@ -1,0 +1,20 @@
+<%= link("Logout", to: Routes.session_path(@conn, :delete),
+            method: :delete) %>
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+  <%= label f, :approval %>
+  <%= checkbox f, :approval, class: "form-control" %>
+  <%= error_tag f, :date %>
+  </div>
+  
+
+  <div>
+    <%= submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

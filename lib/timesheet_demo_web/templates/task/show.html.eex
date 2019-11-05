@@ -1,0 +1,30 @@
+<h1>Timesheets</h1>
+<%= link("Logout", to: Routes.session_path(@conn, :delete),
+            method: :delete) %>
+
+<h1><%= @request %></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Job Code</th>
+      <th>Time</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= for task <- @tasks do %>
+    <tr>
+      <td><%= task.job_code %></td>
+      <td><%= task.time %></td>
+      <td><%= task.desc %></td>
+    </tr>
+  <% end %>
+
+  </tbody>
+</table>
+
+<%= if @count < 3 && @current_user.manager != nil do %>
+<span><%= link "New Task", to: Routes.task_path(@conn, :new, %{"request" => @request}) %></span>
+<% end %>

@@ -1,0 +1,29 @@
+<h1>Timesheetsssssssssss</h1>
+<%= link("Logout", to: Routes.session_path(@conn, :delete),
+            method: :delete) %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Job Code</th>
+      <th>Time</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= for task <- @tasks do %>
+    <%= if task.user_id == @current_user.id && task.request_id == @id do %>
+      <tr>
+      <td><%= task.job_code %></td>
+      <td><%= task.time %></td>
+      <td><%= task.desc %></td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  </tbody>
+</table>
+
+<span><%= link "New Request", to: Routes.request_path(@conn, :new) %></span>

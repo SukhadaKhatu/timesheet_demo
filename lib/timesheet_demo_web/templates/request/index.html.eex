@@ -1,0 +1,46 @@
+<h1>Listing Requests</h1>
+<%= link("Logout", to: Routes.session_path(@conn, :delete),
+            method: :delete) %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Approval</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for request <- @requests do %>
+  <%= if @current_user.manager == nil do %>
+  <%= if request.manager_id == @current_user.id do %>
+    <tr>
+      <td><%= request.name %></td>
+      <td><%= request.date %></td>
+      <td><%= request.approval %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.task_path(@conn, :show, request) %></span>
+        <span><%= link "Edit", to: Routes.request_path(@conn, :edit, request) %></span>
+      </td>
+    </tr>
+  <% end %>
+  <% else %>
+    <%= if request.user_id == @current_user.id do %>
+      <tr>
+      <td><%= request.name %></td>
+      <td><%= request.date %></td>
+      <td><%= request.approval %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.task_path(@conn, :show, request) %></span> 
+      </td>
+    </tr>
+    <% end %>
+  <% end %>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Request", to: Routes.request_path(@conn, :new) %></span>
