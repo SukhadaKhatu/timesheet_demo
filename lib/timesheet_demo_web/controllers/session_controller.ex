@@ -7,8 +7,6 @@ defmodule TimesheetDemoWeb.SessionController do
   
     def create(conn, %{"email" => email, "password" => password}) do
         user = TimesheetDemo.Users.authenticate(email, password)
-        IO.inspect(user)
-        IO.inspect(user.manager)
         if user.manager == nil do
             if user do
                 conn
