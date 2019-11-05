@@ -2,7 +2,6 @@
 <%= link("Logout", to: Routes.session_path(@conn, :delete),
             method: :delete) %>
 
-<h1><%= @request %></h1>
 <table>
   <thead>
     <tr>
@@ -25,6 +24,6 @@
   </tbody>
 </table>
 
-<%= if @count < 3 && @current_user.manager != nil do %>
+<%= if @count < 8 && @current_user.manager != nil do %>
 <span><%= link "New Task", to: Routes.task_path(@conn, :new, %{"request" => @request}) %></span>
 <% end %>

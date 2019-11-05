@@ -54,7 +54,7 @@ defmodule TimesheetDemo.Tasks do
   end
 
   def get_count(id) do
-    Task |> where(request_id: ^id) |> Repo.aggregate(:count, :id)
+    Task |> where(request_id: ^id) |> Repo.aggregate(:count, :time)
   end
 
   def create_task(attrs \\ %{}) do
