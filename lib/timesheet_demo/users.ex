@@ -51,15 +51,20 @@ defmodule TimesheetDemo.Users do
 
   """
   def create_user(attrs \\ %{}) do
-    IO.puts("hereeee")
     IO.inspect(attrs["manager"])
-    id = get_user_by_email(attrs["manager"])
-    IO.inspect(id)
-    new_attrs = %{attrs | "manager" => id}
-    IO.inspect(new_attrs)
-    %User{}
-    |> User.changeset(new_attrs)
-    |> Repo.insert()
+    if(attrs["manager"] != "") do
+      id = get_user_by_email(attrs["manager"])
+      new_attrs = %{attrs | "manager" => id}
+      %User{}
+      |> User.changeset(new_attrs)
+      |> Repo.insert()
+    else
+      IO.inspect(attrs)
+      %User{}
+      |> User.changeset(attrs)
+      |> Repo.insert()
+    end
+    
   end
 
   @doc """
@@ -112,6 +117,7 @@ defmodule TimesheetDemo.Users do
   def get_user_by_email(email) do
     Repo.get_by(User, email: email).id
   end
+
 
   def authenticate(email, pass) do
     user = Repo.get_by(User, email: email)
